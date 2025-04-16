@@ -6,12 +6,12 @@ async function loadBackground(query = 'jakarta') {
   const API_KEY = 'zqvNi0j55L1UteAnSsoZmpDW7zyQl2QdeYxUX2BRC0qkNxz2SuJcFD6a';
 
   const response = await fetch(
-    `https://api.pexels.com/v1/search/?query=${query}&per_page=1`,
+    `https://api.pexels.com/v1/search/?query=${query}%20skyline&per_page=80`,
     { headers: { Authorization: API_KEY } }
   );
   const data = await response.json();
-  const randomIndex = Math.floor(Math.random() * data.photos.length);
-  const bgUrl = data.photos[randomIndex].src.landscape;
+  const randomIndex = () => Math.floor(Math.random() * data.photos.length);
+  const bgUrl = data.photos[randomIndex()].src.landscape;
 
   document.body.style.backgroundImage = `url(${bgUrl})`;
   document.body.style.backgroundSize = 'cover';
@@ -49,7 +49,29 @@ async function initUI() {
     id: 'current-location',
     textContent: weatherData[0].location,
   });
-  const todayBox = em('div', { id: 'today' });
+  function renderClock(timezone = 'Asia/Jakarta', callback) {
+    function updateTime() {
+      const now = new Date();
+      const timeString = new Intl.DateTimeFormat('en-US', {
+        timeZone: timezone,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).format(now);
+      if (typeof callback === 'function') {
+        callback(timeString);
+      }
+    }
+    updateTime();
+    return setInterval(updateTime, 1000);
+  }
+  const currentLocationTime = em('p', { id: 'clock' });
+
+  renderClock(undefined, (time) => {
+    currentLocationTime.textContent = time;
+  });
+  const weekBox = em('div', { id: 'week-box' });
+  const todayBox = em('div', { id: 'today-box' });
   const todayMidBox = em('div', { id: 'today-mid-box' });
   const todayDate = em('p', {
     textContent: weatherData[0].formattedDate,
@@ -59,9 +81,7 @@ async function initUI() {
     textContent: weatherData[0].temp,
     id: 'today-temp',
   });
-  console.log(`/src/icons/${weatherData[0].icon}.svg`);
   const todayIcon = em('img', {
-    className: 'icon',
     attributes: { src: images[`${weatherData[0].icon}.svg`] },
   });
   const todayDesc = em('p', {
@@ -73,10 +93,31 @@ async function initUI() {
   todayMidBox.appendChild(todayTemp);
   todayBox.appendChild(todayMidBox);
   todayBox.appendChild(todayDesc);
+  weekBox.appendChild(todayBox);
+
+  for (let i = 1; i < weatherData.length; i++) {
+    const dayBox = em('div', { classNames: 'day-box' });
+    const date = em('p', {
+      textContent: weatherData[i].day,
+      classNames: 'date',
+    });
+    const icon = em('img', {
+      attributes: { src: images[`${weatherData[i].icon}.svg`] },
+    });
+    const temp = em('p', {
+      textContent: weatherData[i].temp,
+      classNames: 'today-temp',
+    });
+    dayBox.appendChild(date);
+    dayBox.appendChild(icon);
+    dayBox.appendChild(temp);
+    weekBox.appendChild(dayBox);
+  }
 
   container.appendChild(locationSearch);
   container.appendChild(currentLocationBox);
-  container.appendChild(todayBox);
+  container.appendChild(currentLocationTime);
+  container.appendChild(weekBox);
 
   body.appendChild(container);
 }
