@@ -19,25 +19,61 @@ textarea {
 body {
   font-family: Helvetica, Arial, system-ui;
   font-size: 16px;
-  height: 100vh;
   line-height: 1.5;
 }
 
 input {
-  background: none;
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  outline: none;
+  background-color: #fff;
+  color: #333;
   margin: 10px;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+input:focus {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: #f9f9f9;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#current-location,
+#clock {
+  margin-left: auto;
+  margin-right: 10px;
+  font-size: 2rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
 }
 
 #week-box {
   background: rgba(255, 255, 255, 0.6);
   display: flex;
   gap: 10px;
+  padding: 10px;
+  margin-top: auto;
 }
 
 #today-box {
   text-align: center;
   margin: 10px;
-  /* padding: 10px; */
+  padding: 10px;
 }
 
 #today-mid-box {
@@ -46,16 +82,50 @@ input {
   align-items: center;
 }
 
+#today-date {
+  font-size: 2rem;
+}
+
 #today-temp {
-  font-size: clamp(0.5rem, 2rem, 10rem);
+  font-size: 4rem;
+}
+#today-date,
+.day {
+  background-color: #333;
+  color: #fff;
+  border-radius: 999px;
+}
+
+.day,
+.day-temp {
+  font-size: 2rem;
+}
+
+#today-desc {
+  font-style: italic;
 }
 
 #today-mid-box img {
-  width: clamp(50px, 100px, 500px);
-  height: clamp(50px, 100px, 500px);
+  width: clamp(50px, 150px, 500px);
+  height: clamp(50px, 150px, 500px);
+}
+
+.day-box {
+  text-align: center;
+  padding: 20px;
+  border-left: 1px solid grey;
+}
+
+#week-box .day-box:nth-child(8) {
+  border-right: 1px solid grey;
 }
 
 .day-box img {
-  width: clamp(15px, 50px, 250px);
-  height: clamp(15px, 50px, 250px);
+  width: clamp(15px, 100px, 250px);
+  height: clamp(15px, 100px, 250px);
+}
+
+.summary {
+  font-size: 1.5rem;
+  padding: 10px;
 }
