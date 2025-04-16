@@ -41,6 +41,7 @@ function Weather() {
     const daysDetails = [];
     for (let i = 0; i < weatherData.days.length; i++) {
       const location = weatherData.resolvedAddress;
+      const timezone = weatherData.timezone;
       const date = weatherData.days[i].datetime;
       const formattedDate = formatDate(date);
       const day = getDay(date);
@@ -49,6 +50,7 @@ function Weather() {
       const icon = weatherData.days[i].icon;
       daysDetails.push({
         location,
+        timezone,
         formattedDate,
         day,
         temp,
