@@ -18,6 +18,44 @@ textarea {
 /* Body Styles */
 body {
   font-family: Helvetica, Arial, system-ui;
+  font-size: 16px;
   height: 100vh;
   line-height: 1.5;
+}
+
+input {
+  background: none;
+  margin: 10px;
+}
+
+#week-box {
+  background: rgba(255, 255, 255, 0.6);
+  display: flex;
+  gap: 10px;
+}
+
+#today-box {
+  text-align: center;
+  margin: 10px;
+  /* padding: 10px; */
+}
+
+#today-mid-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#today-temp {
+  font-size: clamp(0.5rem, 2rem, 10rem);
+}
+
+#today-mid-box img {
+  width: clamp(50px, 100px, 500px);
+  height: clamp(50px, 100px, 500px);
+}
+
+.day-box img {
+  width: clamp(15px, 50px, 250px);
+  height: clamp(15px, 50px, 250px);
 }
