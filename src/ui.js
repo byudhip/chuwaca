@@ -97,23 +97,28 @@ async function initUI() {
 
   for (let i = 1; i < weatherData.length; i++) {
     const dayBox = em('div', { classNames: 'day-box' });
-    const date = em('p', {
+    const day = em('p', {
       textContent: weatherData[i].day,
-      classNames: 'date',
+      classNames: 'day',
     });
     const icon = em('img', {
       attributes: { src: images[`${weatherData[i].icon}.svg`] },
     });
     const temp = em('p', {
       textContent: weatherData[i].temp,
-      classNames: 'today-temp',
+      classNames: 'day-temp',
     });
-    dayBox.appendChild(date);
+    dayBox.appendChild(day);
     dayBox.appendChild(icon);
     dayBox.appendChild(temp);
     weekBox.appendChild(dayBox);
   }
-
+  const summaryText = await Weather().safeSummary();
+  const summary = em('div', {
+    textContent: summaryText.slice(0, summaryText.indexOf('.') + 1),
+    classNames: 'summary',
+  });
+  weekBox.appendChild(summary);
   container.appendChild(locationSearch);
   container.appendChild(currentLocationBox);
   container.appendChild(currentLocationTime);
