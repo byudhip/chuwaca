@@ -57,9 +57,9 @@ input:focus {
   margin-right: 10px;
   font-size: 2rem;
   color: white;
-  background-color: rgba(0, 0, 0, 0.4);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 #week-box {
@@ -126,6 +126,6 @@ input:focus {
 }
 
 .summary {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding: 10px;
 }
