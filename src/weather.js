@@ -60,15 +60,10 @@ function Weather() {
     }
     return daysDetails;
   }
-  async function fetchWikiSummary(location = 'Jakarta') {
-    const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(location)}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.extract;
-  }
+
   const safeNext7D = eh(next7D);
-  const safeSummary = eh(fetchWikiSummary);
-  return { safeNext7D, safeSummary };
+
+  return { safeNext7D };
 }
 
 export { Weather };
