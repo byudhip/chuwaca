@@ -1,5 +1,5 @@
 import './styles.css';
-import { initUI } from './ui';
+import { UI } from './ui';
 
-initUI();
-// console.log(Weather().safeNext7D());
+const ui = await UI();
+await ui.renderUI();
